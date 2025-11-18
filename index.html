@@ -223,22 +223,80 @@ async function loadProducts() {
     const top = document.getElementById('carousel-top');
     const bottom = document.getElementById('carousel-bottom');
 
-    data.products.forEach((product, i) => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h4>${product.name}</h4>
-        <p>${product.price}</p>
-        <a href="${product.url}" target="_blank">View</a>
-      `;
+    <!-- Auto-scrolling two-layer carousel with full-image links -->
+<section id="products" class="container">
+  <h2>Our Products</h2>
+  <div id="carousel-container">
+    <div class="carousel-layer" id="carousel-top"></div>
+    <div class="carousel-layer" id="carousel-bottom"></div>
+  </div>
+</section>
 
-      if (i % 2 === 0) top.appendChild(card);
-      else bottom.appendChild(card);
-    });
-  } catch (err) {
-    console.error('Failed to fetch product list:', err);
+<style>
+  #carousel-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
   }
+  .carousel-layer {
+    display: flex;
+    overflow-x: hidden;
+    gap: 1rem;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+  }
+  .carousel-layer a img {
+    height: 200px;
+    display: inline-block;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  .carousel-layer a img:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<script>
+async function loadProducts() {
+  try {
+    const res = await fetch('https://payhip.com/api/products?store=TheBoom10Store');
+    const data = await res.json();
+
+    const top = document.getElementById('carousel-top');
+    const bottom = document.getElementById('carousel-bottom');
+
+    data.products.forEach((product, i) => {
+      const link = document.createElement('a');
+      link.href = product.url;
+      link.target = '_blank';
+      link.innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+
+      if (i % 2 === 0) top.appendChild(link);
+      else bottom.appendChild(link);
+    });
+
+    autoScroll(top, 1);
+    autoScroll(bottom, -1);
+  } catch (err) {
+    console.error('Failed to fetch Payhip products:', err);
+  }
+}
+
+function autoScroll(container, direction) {
+  let pos = 0;
+  function step() {
+    pos += 1 * direction;
+    if (pos > container.scrollWidth) pos = 0;
+    if (pos < 0) pos = container.scrollWidth;
+    container.scrollLeft = pos;
+    requestAnimationFrame(step);
+  }
+  step();
+}
+
+loadProducts();
+</script>
 }
 
 loadProducts();
