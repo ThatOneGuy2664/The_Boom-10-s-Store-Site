@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The_Boom10's Store</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: cover;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .logo {
+      max-height: 80px;
+      margin-bottom: 1rem;
+    }
+    .logo_bottom {
+      max-height: 150px;
+      display: block;
+      margin: 1rem auto 0 auto;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      padding-left: 10px;
+      padding-bottom: 15px;
+    }
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+    .social-icon {
+      height: 40px;
+      width: 40px;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      filter: brightness(0.9);
+    }
+    .social-icon:hover {
+      transform: scale(1.15);
+      filter: brightness(1.3);
+    }
+    footer a:not(:has(img)) {
+      position: relative;
+      color: var(--accent-light);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:not(:has(img))::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-light);
+      opacity: 0.4;
+      box-shadow: 0 0 6px var(--accent-light);
+      transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    }
+    footer a:not(:has(img)):hover::after {
+      opacity: 1;
+      box-shadow: 0 0 10px var(--accent-light);
+    }
+    .email-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+    .email-button:hover {
+      background: var(--accent-light);
+      box-shadow: 0 4px 12px var(--shadow-color);
+    }
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="assets/video1.mp4" type="video/mp4" />
+  </video>
+  <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const videoElement = document.getElementById('bg-video');
+        const sourceElement = videoElement.querySelector('source');
+
+        // Declare thine array of paths
+        const videos = [
+          'assets/video.mp4',
+          'assets/video1.mp4'
+        ];
+
+        // Choose one at random
+        const chosenVideo = videos[Math.floor(Math.random() * videos.length)];
+        sourceElement.src = chosenVideo;
+
+        // Reload the video source
+        videoElement.load();
+      });
+    </script>
+  <!-- Tagline Section -->
+  <header>
+    <img src="assets/logo.png" alt="The_Boom10's Store Logo" class="logo">
+    <h1>The_Boom10's Store</h1>
+  </header>
+  <main>
+    <section>
+      <h2>We Build, Script, and Help with Roblox Games</h2>
+      <p>Our team has vast experience from UI & GFX, to scripting & modeling.</p>
+      <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">
+      Get in Touch
+    </button>
+    </section>
+
+    <!-- About Section -->
+    <section class="container">
+      <h2>Open to Commissions</h2>
+      <p>From scripters and UI artists to 3D modelers, we can assure you the products you desire. If it's not on our store, it can be.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+  <h2>What We Offer</h2>
+      <div class="features">
+        <div>
+          <h3>🚀 Tons of Original Products</h3>
+          <p>At The_Boom10's Store, we have a host of original products, from exclusive systems to models, you won't find most of our products anywhere else.</p>
+        </div>
+        <div>
+          <h3>🛡️ Satisfaction Guaranteed</h3>
+          <p>We're not just another tech server, we offer cheap prices for high-quality products.</p>
+        </div>
+        <div>
+          <h3>✨ We'll be With You For the Long Haul</h3>
+          <p>Join our server and get to know our developers, chat with them and brainstorm together.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Placeholder -->
+    <section id="contact" class="container">
+      <h2>Contact Us</h2>
+      <p>Need to get in touch?</p>
+      <a href="mailto:theboom10sstore@gmail.com"><button>Send Us an Email</button></a>
+    </section>
+  </main>
+
+  <!-- Two-layer carousel appended to The_Boom10's Store website -->
+<section id="products" class="container">
+  <h2>Our Products</h2>
+  <div id="carousel-container">
+    <div class="carousel-layer" id="carousel-top"></div>
+    <div class="carousel-layer" id="carousel-bottom"></div>
+  </div>
+</section>
+
+<style>
+  #carousel-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .carousel-layer {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+  }
+  .product-card {
+    min-width: 200px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+  .product-card img {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+</style>
+
+<script>
+async function loadProducts() {
+  try {
+    const res = await fetch('products.json');
+    const data = await res.json();
+
+    const top = document.getElementById('carousel-top');
+    const bottom = document.getElementById('carousel-bottom');
+
+    data.products.forEach((product, i) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h4>${product.name}</h4>
+        <p>${product.price}</p>
+        <a href="${product.url}" target="_blank">View</a>
+      `;
+
+      if (i % 2 === 0) top.appendChild(card);
+      else bottom.appendChild(card);
+    });
+  } catch (err) {
+    console.error('Failed to fetch product list:', err);
+  }
+}
+
+loadProducts();
+</script>
+
+  <footer>
+    <div class="social-buttons">
+      <a href="https://discord.gg/rEmF2YJfg4" target="_blank" title="Join our Discord">
+      <img src="https://www.svgrepo.com/show/330307/discord.svg" alt="Discord" class="social-icon" />
+      </a>
+    </div>
+    &copy; 2025 The_Boom10's Store, All Rights Reserved
+    <img src="assets/logo.png" alt="The_Boom10's Store Logo" class="logo_bottom">
+  </footer>
+</body>
+</html>
